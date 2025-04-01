@@ -6,6 +6,9 @@ OWM_API_KEY = os.environ["OWM_API_KEY"]
 UBIDOTS_TOKEN = os.environ["UBIDOTS_TOKEN"]
 DEVICE_LABEL = "weather-api"
 
+print("Loaded OWM_API_KEY:", OWM_API_KEY)
+
+
 owm_url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={OWM_API_KEY}&units=metric"
 response = requests.get(owm_url)
 print("OpenWeatherMap status:", response.status_code)
