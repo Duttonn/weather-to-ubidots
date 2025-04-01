@@ -1,0 +1,28 @@
+name: Update Weather Data
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Runs every 15 minutes
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update-weather:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Weather Script
+        env:
+          OWM_API_KEY: ${{ secrets.OWM_API_KEY }}
+          UBIDOTS_TOKEN: ${{ secrets.UBIDOTS_TOKEN }}
+        run: |
+          python weather_to_ubidots.py
